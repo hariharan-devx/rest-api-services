@@ -1,11 +1,17 @@
 import express from "express";
 import dotenv from "dotenv";
-import router from "./routes/healthRoute.js";
-
-const app = express();
+import { connectMongo } from "./config/mongo/mongoConfig.js";
+import healthRoutes from "./routes/healthRoute.js";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
-app.use(router);
+const app = express();
+app.use(express.json());
+
+connectMongo();
+
+app.use(healthRoutes);
+app.use(userRoutes);
 
 export default app;
